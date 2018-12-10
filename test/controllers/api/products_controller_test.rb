@@ -1,28 +1,28 @@
 require 'test_helper'
 
-class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
+class Api::ItemsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get api_products_index_url
+    get api_items_index_url
     assert_response :success
   end
 
   test "should get show" do
-    get api_products_show_url
+    get api_items_show_url
     assert_response :success
   end
 
   test "should get create" do
-    get api_products_create_url
+    get api_items_create_url
     assert_response :success
   end
 
   test "should get update" do
-    get api_products_update_url
+    get api_items_update_url
     assert_response :success
   end
 
   test "should get destroy" do
-    get api_products_destroy_url
+    get api_items_destroy_url
     assert_response :success
   end
 
