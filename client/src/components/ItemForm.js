@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { Form, } from 'semantic-ui-react';
 
-class ProductForm extends React.Component {
+class ItemForm extends React.Component {
   state = { name: "", description: "", price: "", department: "", };
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    const { department_id, id, } = this.props.match.params;
     if (id)
-      axios.get(`/api/products/${id}`)
+      axios.get(`/departments/${department_id}/items/${id}`)
         .then( res => {
           const { name, description, price, department, } = res.data;
           this.setState({ name, description, price, department, });
@@ -21,17 +22,17 @@ class ProductForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const product = { ...this.state };
-    const { id } = this.props.match.params;
+    const item = { ...this.state };
+    const { department_id, id, } = this.props.match.params;
     if (id) {
-      axios.put(`/api/products/${id}`, product )
+      axios.put(`/departments/${department_id}/items/${id}`, item)
         .then( res => {
-          this.props.history.push(`/products/${id}`)
+          this.props.history.push(`/departments/${department_id}/items/${id}`)
         })
     } else {
-      axios.post("/api/products", product)
+      axios.post(`/departments/${department_id}/items`, item)
         .then( res => {
-          this.props.history.push("/products")
+          this.props.history.push(`/departments/${department_id}`)
         })
     }
   }
@@ -39,39 +40,36 @@ class ProductForm extends React.Component {
   render() {
     const { name, description, price, department, } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Input
+          fluid
           name="name"
-          placeholder="Name"
+          placeholder="Item Name"
           value={name}
           onChange={this.handleChange}
           required
         />
-        <input
-          name="description"
-          placeholder="Description"
-          value={description}
-          onChange={this.handleChange}
-          required
-        />
-        <input
+        <Form.Input
+          fluid
           name="price"
-          placeholder="Price"
+          placeholder="Item Price"
           value={price}
           onChange={this.handleChange}
           required
         />
-        <input
-          name="department"
-          placeholder="Department"
-          value={department}
+        <Form.Input
+          fluid
+          name="description"
+          placeholder="Item Description"
+          value={price}
           onChange={this.handleChange}
           required
         />
-        <button>Submit</button>
-      </form>
+
+        <Form.Button content='Submit' color="green" />
+      </Form>
     )
   }
 }
 
-export default ProductForm;
+export default ItemForm;

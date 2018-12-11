@@ -2,22 +2,22 @@ import React from "react";
 import axios from "axios";
 import { Link, } from "react-router-dom";
 
-class Products extends React.Component {
-  state = { products: [], };
+class Items extends React.Component {
+  state = { items: [], };
 
   componentDidMount() {
-    axios.get("/api/products")
+    axios.get("/items")
       .then( res => {
-        this.setState({ products: res.data, });
+        this.setState({ items: res.data, });
       })
       .catch( err => {
         console.log(err.response);
       })
   }
 
-  renderProducts = () => {
-    return this.state.products.map( p => (
-      <Link to={`/products/${p.id}`}>
+  renderItems = () => {
+    return this.state.items.map( p => (
+      <Link to={`/items/${p.id}`}>
         <li>{ p.name }</li>
       </Link>
     ));
@@ -27,15 +27,15 @@ class Products extends React.Component {
     return (
       <div>
         <br />
-        <Link to="/products/new">
-          <button>New Product</button>
+        <Link to="/items/new">
+          <button>New Item</button>
         </Link>
         <ul>
-          { this.renderProducts() }
+          { this.renderItems() }
         </ul>
       </div>
     )
   }
 }
 
-export default Products;
+export default Items;
