@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { Route, Switch, } from 'react-router-dom';
-//import Navbar from './components.Navbar';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import NoMatch from './components/NoMatch';
@@ -13,6 +13,7 @@ import { Container, Header, Icon } from 'semantic-ui-react'
 
 const App = () => (
   <Container style={{ paddingTop: "30 px"}}>
+    <Navbar />
     <Header as='h1' icon textAlign="center">
       <Icon inverted color="green" name='money bill alternate' circular />
       Department Store 2.0

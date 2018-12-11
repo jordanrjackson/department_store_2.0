@@ -41,24 +41,24 @@ class DepartmentForm extends React.Component {
     const { name, description, } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
-      <Form.Input
-        fluid
-        required
-        name="name"
-        placeholder="Department Name"
-        value={name}
-        onChange={this.handleChange}
-      />
-      <Form.Input
-        fluid
-        required
-        name="description"
-        placeholder="Department Description"
-        value={description}
-        onChange={this.handleChange}
-      />
-      <Form.Button content='Submit' color="green" />
-    </Form>
+        <Form.Input
+          fluid
+          required
+          name="name"
+          placeholder="Department Name"
+          value={name}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          required
+          name="description"
+          placeholder="Department Description"
+          value={description}
+          onChange={this.handleChange}
+        />
+        <Form.Button content='Submit' color="green" />
+      </Form>
     )
   }
 }
