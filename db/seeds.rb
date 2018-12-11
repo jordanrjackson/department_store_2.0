@@ -1,8 +1,6 @@
-100.times do
-  Item.create(
-    name: Faker::Commerce.item_name,
+10.times do
+  Department.create(
+    name: Faker::Commerce.department,
     description: Faker::Lorem.sentence,
-    price: Faker::Commerce.price.to_f,
-    department: Faker::Commerce.department
   )
 end
