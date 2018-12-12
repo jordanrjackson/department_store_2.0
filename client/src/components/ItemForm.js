@@ -39,35 +39,44 @@ class ItemForm extends React.Component {
 
   render() {
     const { name, description, price, department, } = this.state;
+    
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Input
-          fluid
-          name="name"
-          placeholder="Item Name"
-          value={name}
-          onChange={this.handleChange}
-          required
-        />
-        <Form.Input
-          fluid
-          name="price"
-          placeholder="Item Price"
-          value={price}
-          onChange={this.handleChange}
-          required
-        />
-        <Form.Input
-          fluid
-          name="description"
-          placeholder="Item Description"
-          value={price}
-          onChange={this.handleChange}
-          required
-        />
-
-        <Form.Button content='Submit' color="green" />
-      </Form>
+      <div>
+        <h1>Add Item</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              name="name"
+              placeholder="Item Name"
+              value={name}
+              onChange={this.handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              name="price"
+              placeholder="Item Price"
+              value={price}
+              onChange={this.handleChange}
+              required
+            />
+            <Form.Input
+              fluid
+              name="description"
+              placeholder="Item Description"
+              value={price}
+              onChange={this.handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Button color="green">
+            Submit
+          </Form.Button>
+        </Form>
+      </div>
     )
   }
 }

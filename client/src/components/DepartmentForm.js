@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Form, } from 'semantic-ui-react';
 
 class DepartmentForm extends React.Component {
-  state = { name: "", description: "", }
+  state = { name: "", description: "", };
 
   componentDidMount() {
     const { id, } = this.props.match.params;

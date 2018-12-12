@@ -33,8 +33,11 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update(item_params)
-    render json: @item
+    if @item.update(item_params)
+      render json: @item
+    else
+      render json: @item.errors
+    end
   end
 
   def destroy

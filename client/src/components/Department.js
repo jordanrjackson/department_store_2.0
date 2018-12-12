@@ -34,6 +34,20 @@ class Department extends React.Component {
     ))
   }
 
+  removeItem = (id) => {
+    const remove = window.confirm("Are you sure you want to delete this item?");
+    const dId = this.props.match.params.id;
+    if (remove)
+      axios.delete(`/departments/${dId}/items/${id}`)
+        .then( res => {
+          const items = this.state.items.filter( i => {
+            if (i.id !== id)
+              return i;
+          })
+          this.setState({ items, });
+        })
+  }
+
   render() {
     const { department, items } = this.state;
     return(
