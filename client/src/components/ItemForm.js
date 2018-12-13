@@ -8,7 +8,7 @@ class ItemForm extends React.Component {
   componentDidMount() {
     const { department_id, id, } = this.props.match.params;
     if (id)
-      axios.get(`/departments/${department_id}/items/${id}`)
+      axios.get(`/api/departments/${department_id}/items/${id}`)
         .then( res => {
           const { name, description, price, department, } = res.data;
           this.setState({ name, description, price, department, });
@@ -25,14 +25,14 @@ class ItemForm extends React.Component {
     const item = { ...this.state };
     const { department_id, id, } = this.props.match.params;
     if (id) {
-      axios.put(`/departments/${department_id}/items/${id}`, item)
+      axios.put(`/api/departments/${department_id}/items/${id}`, item)
         .then( res => {
           this.props.history.push(`/departments/${department_id}/items/${id}`)
         })
     } else {
-      axios.post(`/departments/${department_id}/items`, item)
+      axios.post(`/api/departments/${department_id}/items`, item)
         .then( res => {
-          this.props.history.push(`/departments/${department_id}`)
+          this.props.history.push(`/api/departments/${department_id}`)
         })
     }
   }

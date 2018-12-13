@@ -8,8 +8,8 @@ class Department extends React.Component {
 
   componentDidMount() {
     const {id } = this.props.match.params;
-    axios.all([axios.get(`departments/${id}`),
-    axios.get(`/departments/${id}/items`)])
+    axios.all([axios.get(`/api/departments/${id}`),
+    axios.get(`/api/departments/${id}/items`)])
       .then(axios.spread((department, items,) => {
         this.setState({ department: department.data, items: items.data});
       }))
@@ -17,7 +17,7 @@ class Department extends React.Component {
 
   handleDelete = () => {
     const { id } = this.props.match.params;
-    axios.delete(`/departments/${id}`)
+    axios.delete(`/api/departments/${id}`)
       .then( res => {
         this.props.history.push("/departments")
       })
@@ -38,7 +38,7 @@ class Department extends React.Component {
     const remove = window.confirm("Are you sure you want to delete this item?");
     const dId = this.props.match.params.id;
     if (remove)
-      axios.delete(`/departments/${dId}/items/${id}`)
+      axios.delete(`/api/departments/${dId}/items/${id}`)
         .then( res => {
           const items = this.state.items.filter( i => {
             if (i.id !== id)

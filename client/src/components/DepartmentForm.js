@@ -8,7 +8,7 @@ class DepartmentForm extends React.Component {
   componentDidMount() {
     const { id, } = this.props.match.params;
     if(id)
-      axios.get(`departments/${id}`)
+      axios.get(`/api/departments/${id}`)
         .then( res => {
           const { name, description, } = res.data;
           this.setState({ name, description, });
@@ -25,12 +25,12 @@ class DepartmentForm extends React.Component {
     const department = { ...this.state };
     const { id } = this.props.match.params;
     if (id) {
-      axios.put(`/departments/${id}`, department)
+      axios.put(`/api/departments/${id}`, department)
         .then( res => {
           this.props.history.push(`/departments/${id}`)
         })
     } else {
-      axios.post("/departments", department)
+      axios.post("/api/departments", department)
         .then( res => {
           this.props.history.push("/departments")
         })

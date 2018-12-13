@@ -7,7 +7,7 @@ class Departments extends React.Component {
   state = { departments: [], };
 
   componentDidMount() {
-    axios.get("/departments")
+    axios.get("/api/departments")
       .then( res => {
         this.setState({ departments: res.data, })
       })

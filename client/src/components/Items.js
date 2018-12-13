@@ -17,7 +17,7 @@ class Items extends React.Component {
 
   renderItems = () => {
     return this.state.items.map( p => (
-      <Link to={`/items/${p.id}`}>
+      <Link to={`/api/items/${p.id}`}>
         <li>{ p.name }</li>
       </Link>
     ));

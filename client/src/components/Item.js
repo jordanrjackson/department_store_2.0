@@ -8,7 +8,7 @@ class Item extends React.Component {
 
   componentDidMount() {
     const{ department_id, id } = this.props.match.params;
-    axios.get(`/departments/${department_id}/items/${id}`)
+    axios.get(`/api/departments/${department_id}/items/${id}`)
       .then( res => {
         this.setState({ item: res.data, })
       })
@@ -16,9 +16,9 @@ class Item extends React.Component {
 
   handleDelete = () => {
     const { department_id, id } = this.props.match.params;
-    axios.delete(`/departments/${department_id}/items/${id}`)
+    axios.delete(`/api/departments/${department_id}/items/${id}`)
       .then( res => {
-        this.props.history.push(`/departments/${department_id}`)
+        this.props.history.push(`/api/departments/${department_id}`)
       })
   }
 
