@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import Item from './Item';
 import { Link } from 'react-router-dom';
-import { List, Button, Container, Header, Icon, Divider, } from 'semantic-ui-react';
+import { Button, Container, Icon, Divider, Card } from 'semantic-ui-react';
 
 class Department extends React.Component {
   state = { department: [], items: [], }
 
   componentDidMount() {
-    const {id } = this.props.match.params;
+    const { id } = this.props.match.params;
     axios.all([axios.get(`/api/departments/${id}`),
     axios.get(`/api/departments/${id}/items`)])
       .then(axios.spread((department, items,) => {
@@ -16,52 +17,49 @@ class Department extends React.Component {
   }
 
   handleDelete = () => {
+    const remove = window.confirm("Are you sure you want to delete this department?")
     const { id } = this.props.match.params;
-    axios.delete(`/api/departments/${id}`)
-      .then( res => {
-        this.props.history.push("/departments")
-      })
+    if (remove)
+      axios.delete(`/api/departments/${id}`)
+        .then( res => this.props.history.push("/departments"))
   }
 
   renderItems = () => {
-    const { department, items } = this.state;
-    return this.state.items.map( i => (
-      <List.Item>
-        <Link to={`/departments/${department.id}/items/${i.id}`} >
-          <List.Header as="a"><h3>{i.name}</h3></List.Header>
-        </Link>
-      </List.Item>
+    const { items } = this.state;
+    const dept_id = this.state.department.id
+    return items.map( i => (
+      <Item key={i.id} {...i} remove={this.removeItem} dept_id={dept_id} />
     ))
   }
 
   removeItem = (id) => {
-    const remove = window.confirm("Are you sure you want to delete this item?");
-    const dId = this.props.match.params.id;
+    const remove = window.confirm("Are you sure you want to delete this item?")
     if (remove)
-      axios.delete(`/api/departments/${dId}/items/${id}`)
-        .then( res => {
-          const items = this.state.items.filter( i => {
-            if (i.id !== id)
-              return i;
-          })
-          this.setState({ items, });
+      axios.delete(`/api/departments/${this.props.match.params.id}/items/${id}`)
+      .then( res => {
+        const items = this.state.items.filter( i => {
+          if (i.id !== id)
+            return i;
         })
+        this.setState({ items, })
+      })
   }
 
   render() {
-    const { department, items } = this.state;
+    const { department: { id, name, description}, } = this.state;
     return(
       <Container>
         <Button.Group floated="right">
-          <Link to={`/departments/${department.id}/edit`}><Button icon color="blue"><Icon name='edit' /></Button></Link>
-          <Button icon color="red" onClick={this.handleDelete}><Icon name='trash' /></Button>
+          <Link to={`/departments/${id}/edit`}><Button icon color="blue"><Icon name='edit' />Edit</Button></Link>
+          <Button icon color="red" onClick={this.handleDelete}><Icon name='trash' />Delete</Button>
         </Button.Group>
-        <Header as="h2">{this.state.department.name}</Header>
         <Divider />
-        <Link to={`/departments/${department.id}/items/new`}><Button color="green" size="tiny">New Item</Button></Link>
-        <List relaxed="very" style={{ paddingTop: "10px" }} verticalAlign="middle">
+        <Link to={`/departments/${id}/items/new`}><Button icon color="green" size="tiny"><Icon name="add" />New Item</Button></Link>
+        <br />
+        <br />
+        <Card.Group itemsPerRow={4}>
           { this.renderItems() }
-        </List>
+        </Card.Group>
       </Container>
     )
   }

@@ -1,6 +1,6 @@
-import React from 'react';
-import axios from 'axios';
-import { Form, } from 'semantic-ui-react';
+import React from "react";
+import axios from "axios";
+import { Form, } from "semantic-ui-react";
 
 class DepartmentForm extends React.Component {
   state = { name: "", description: "", };
@@ -16,7 +16,7 @@ class DepartmentForm extends React.Component {
   }
 
   handleChange = (e) => {
-    const { target: { name, value, }} = e;
+    const { name, value, } = e.target;
     this.setState({ [name]: value, });
   }
 
@@ -45,7 +45,8 @@ class DepartmentForm extends React.Component {
           fluid
           required
           name="name"
-          placeholder="Department Name"
+          placeholder="Name"
+          label="Name"
           value={name}
           onChange={this.handleChange}
         />
@@ -53,7 +54,8 @@ class DepartmentForm extends React.Component {
           fluid
           required
           name="description"
-          placeholder="Department Description"
+          placeholder="Description"
+          label="Description"
           value={description}
           onChange={this.handleChange}
         />

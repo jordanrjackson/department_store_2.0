@@ -1,10 +1,10 @@
-import React from 'react';
-import axios from 'axios';
-import { Link, } from 'react-router-dom';
-import { List, } from 'semantic-ui-react';
+import React from "react";
+import axios from "axios";
+import { Link, } from "react-router-dom";
+import { Card, Image, Grid, Segment, Rating, Button, Icon, List, } from "semantic-ui-react";
 
 class Departments extends React.Component {
-  state = { departments: [], };
+  state = { deps: [], };
 
   componentDidMount() {
     axios.get("/api/departments")
@@ -17,23 +17,39 @@ class Departments extends React.Component {
   }
 
   renderDepartments = () => {
-    return this.state.departments.map( d => (
-      <List.Item>
-        <Link to={`/departments/${d.id}`}>
-        <List.Header as="a"><h2>{d.name}</h2></List.Header>
-        </Link>
-        <List.Description>{d.description}</List.Description>
-      </List.Item>
-      
+    return this.state.deps.map( d => (
+      <Card>
+        <Card.Content>
+          <Card.Header>{d.name}</Card.Header>
+          <Card.Description>{d.description}</Card.Description>
+        </Card.Content>
+        <Card.Content textAlign="center">
+          <Link to={`/departments/${d.id}`}>
+            <Button color="blue">
+              View
+            </Button>
+          </Link>
+        </Card.Content>
+      </Card>
     ))
   }
 
   render() {
-    return(
+    return (
       <div>
-      <List relaxed="very" style={{ paddingTop: "10px" }} divided verticalAlign='middle'>
-        { this.renderDepartments() }
-      </List>
+        <h1>Departments</h1>
+        <br />
+        <Link to="/departments/new">
+          <Button icon color="green">
+            <Icon name='add' />
+            Add Department
+          </Button>
+        </Link>
+        <br />
+        <br />
+        <Card.Group itemsPerRow={3}>
+          { this.renderDepartments() }
+        </Card.Group>
       </div>
     )
   }

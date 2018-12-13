@@ -17,6 +17,6 @@ class Api::ReviewsController < ApplicationController
   private
     
     def set_item
-      @item = Item.find(params[:item_id])
+      @item = Items.find(params[:item_id])
     end
 end
